@@ -22,6 +22,12 @@
         // Update the slider value element when the slider value changes
         slider.addEventListener('input', function() {
             sliderValue.textContent = slider.value;
+
+            // Send an AJAX request to the server to update the value on the Arduino
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send('slider=' + slider.value);
         });
     </script>
 </body>
