@@ -23,11 +23,9 @@ def index():
         ser.write(str(value).encode('utf-8'))
         print("Sent value to Arduino:", value)
 
-    # Send the default value to the Arduino when the page is loaded
-    ser.write(str(default_value).encode('utf-8'))
-
     # Render the template with the current slider value
     return render_template('index.html', value=default_value)
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    # Start the Flask server
+    app.run(debug=True, host='0.0.0.0')
