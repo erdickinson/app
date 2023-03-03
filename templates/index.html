@@ -2,16 +2,13 @@
 <html>
 <head>
   <title>Raspberry Pi to Arduino Communication</title>
-  <script type="text/javascript">
-    function sendValue(value) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/" + value, true);
-      xhr.send();
-    }
-  </script>
 </head>
 <body>
   <h1>Raspberry Pi to Arduino Communication</h1>
-  <input type="range" min="0" max="255" oninput="sendValue(this.value)">
+  <p>Value: {{ value }}</p>
+  <a href="/decrease_20"><<</a>
+  <a href="/decrease_10"><</a>
+  <a href="/increase_10">></a>
+  <a href="/increase_20">>></a>
 </body>
 </html>
