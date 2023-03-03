@@ -1,18 +1,43 @@
-from flask import Flask, render_template, request
-import serial
+#!/usr/bin/env python3
 
-app = Flask(__name__)
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+import serial
+import tkinter as tk
+from tkinter import ttk
+
+# Define the serial port and baud rate
+SERIAL_PORT = '/dev/ttyACM0'
+BAUD_RATE = 9600
+
+# Create a serial object and reset the input buffer
+ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 ser.reset_input_buffer()
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        number = request.form['number']
-        ser.write(number.encode('utf-8'))
-        arduino_response = ser.read().decode('utf-8')
-        print("Received number from Arduino:", arduino_response)
-    return render_template('index.html')
+# Create a Tkinter window
+root = tk.Tk()
+root.title('Send Number to Arduino')
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+# Create a default value for the slider
+default_value = 0
+
+# Define a function to send the selected value to the Arduino
+def send_number(*args):
+    # Get the selected value from the slider
+    value = int(slider.get())
+
+    # Send the value to the Arduino
+    ser.write(str(value).encode('utf-8'))
+    print("Sent value to Arduino:", value)
+
+# Create a slider widget and set its range and default value
+slider = ttk.Scale(root, from_=0, to=255, orient='horizontal')
+slider.set(default_value)
+slider.pack()
+
+# Call the send_number function whenever the slider value is changed
+slider.bind("<ButtonRelease-1>", send_number)
+
+# Send the default value to the Arduino when the application starts
+ser.write(str(default_value).encode('utf-8'))
+
+# Start the Tkinter main loop
+root.mainloop()
