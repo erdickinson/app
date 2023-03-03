@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Control Arduino with Flask</title>
+    <title>Send Number to Arduino</title>
 </head>
 <body>
-    <h1>Control Arduino with Flask</h1>
+    <h1>Send Number to Arduino</h1>
     <form method="POST">
-        <label for="slider">Select a number:</label>
-        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}">
+        <label for="number">Enter a number:</label>
+        <input type="number" id="number" name="number" min="0" max="255">
+        <input type="range" id="slider" name="slider" min="0" max="255" onchange="updateTextInput(this.value)">
         <br>
-        <span id="slider-value">{{ value }}</span>
+        <input type="submit" value="Submit">
     </form>
-
     <script>
-        // Get the slider element
-        var slider = document.getElementById('slider');
-
-        // Get the slider value element
-        var sliderValue = document.getElementById('slider-value');
-
-        // Update the slider value element when the slider value changes
-        slider.addEventListener('input', function() {
-            sliderValue.textContent = slider.value;
-
-            // Send an AJAX request to the server to update the value on the Arduino
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.send('slider=' + slider.value);
-        });
+        function updateTextInput(val) {
+            document.getElementById('number').value=val;
+        }
     </script>
 </body>
 </html>
