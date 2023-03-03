@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Enter a Number</title>
+    <title>Send Number to Arduino</title>
 </head>
 <body>
-    <h1>Enter a Number</h1>
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
+    <h1>Send Number to Arduino</h1>
     <form method="POST">
-        <input type="text" name="number" placeholder="Enter a number">
-        <button type="submit">Submit</button>
+        <label for="number">Enter a number:</label>
+        <input type="text" id="number" name="number">
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
