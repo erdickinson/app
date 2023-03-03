@@ -8,7 +8,14 @@
     <form method="POST">
         <label for="number">Enter a number:</label>
         <input type="number" id="number" name="number" min="0" max="255">
+        <input type="range" id="slider" name="slider" min="0" max="255" oninput="updateTextInput(this.value)">
+        <br>
         <input type="submit" value="Submit">
     </form>
+    <script>
+        function updateTextInput(val) {
+            document.getElementById('number').value=val;
+        }
+    </script>
 </body>
 </html>
