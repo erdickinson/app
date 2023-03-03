@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Send Number to Arduino</title>
+  <title>Raspberry Pi to Arduino Communication</title>
+  <script type="text/javascript">
+    function sendValue(value) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/" + value, true);
+      xhr.send();
+    }
+  </script>
 </head>
 <body>
-    <h1>Send Number to Arduino</h1>
-    <form method="POST">
-        <label for="number">Enter a number:</label>
-        <input type="number" id="number" name="number" min="0" max="255">
-        <input type="range" id="slider" name="slider" min="0" max="255" onchange="updateTextInput(this.value)">
-        <br>
-        <input type="submit" value="Submit">
-    </form>
-    <script>
-        function updateTextInput(val) {
-            document.getElementById('number').value=val;
-        }
-    </script>
+  <h1>Raspberry Pi to Arduino Communication</h1>
+  <input type="range" min="0" max="255" oninput="sendValue(this.value)">
 </body>
 </html>
