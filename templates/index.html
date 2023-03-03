@@ -9,7 +9,17 @@
         <label for="slider">Select a number:</label>
         <input type="range" id="slider" name="slider" min="0" max="255">
         <br>
-        <input type="submit" value="Send">
+        <input type="submit" value="Send" style="display:none;">
     </form>
+    <script>
+        // Get a reference to the slider element
+        var slider = document.getElementById('slider');
+
+        // Add an event listener to detect changes to the slider value
+        slider.addEventListener('input', function() {
+            // Submit the form when the slider value changes
+            this.form.submit();
+        });
+    </script>
 </body>
 </html>
