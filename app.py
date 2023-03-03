@@ -14,6 +14,9 @@ ser.reset_input_buffer()
 # Define a default value for the slider
 DEFAULT_VALUE = 0
 
+# Send the default value to the Arduino when the application starts
+ser.write(str(DEFAULT_VALUE).encode('utf-8'))
+
 # Define the route for the main page
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -22,10 +25,6 @@ def index():
         value = int(request.form['slider'])
         ser.write(str(value).encode('utf-8'))
         print("Sent value to Arduino:", value)
-
-    # Send the default value to the Arduino when the page is first loaded
-    if request.method == 'GET':
-        ser.write(str(DEFAULT_VALUE).encode('utf-8'))
 
     # Render the template with the current slider value
     return render_template('index.html')
