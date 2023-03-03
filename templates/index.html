@@ -2,13 +2,25 @@
 <html>
 <head>
   <title>Raspberry Pi to Arduino Communication</title>
+  <style>
+    .btn {
+      padding: 10px 20px;
+      font-size: 20px;
+      border: 2px solid black;
+      border-radius: 5px;
+      text-decoration: none;
+      color: black;
+    }
+  </style>
 </head>
 <body>
   <h1>Raspberry Pi to Arduino Communication</h1>
-  <p>Value: {{ value }}</p>
-  <a href="/decrease_20"><<</a>
-  <a href="/decrease_10"><</a>
-  <a href="/increase_10">></a>
-  <a href="/increase_20">>></a>
+  <div style="display: flex; align-items: center;">
+    <a href="/decrease_20" class="btn"><<</a>
+    <a href="/decrease_10" class="btn"><</a>
+    <p style="margin: 0 20px; font-size: 20px;">Value: {{ value }}</p>
+    <a href="/increase_10" class="btn">></a>
+    <a href="/increase_20" class="btn">>></a>
+  </div>
 </body>
 </html>
