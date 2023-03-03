@@ -1,37 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
+import os
 import serial
 
 app = Flask(__name__)
 
-# Define the serial port and baud rate
-SERIAL_PORT = '/dev/ttyACM0'
-BAUD_RATE = 9600
+ser = serial.Serial('/dev/ttyACM0', 9600)
 
-# Create a serial object and reset the input buffer
-ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
-ser.reset_input_buffer()
-
-# Initialize the last value of the slider
-last_value = 0
-
-# Define the route for the main page
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/")
 def index():
-    # Retrieve the last value of the slider
-    global last_value
+    return render_template("index.html")
 
-    # If the form was submitted, read the slider value and send it to the Arduino
-    if request.method == 'POST':
-        value = int(request.form['slider'])
-        ser.write(str(value).encode('utf-8'))
-        print("Sent value to Arduino:", value)
-        last_value = value
+@app.route("/<value>")
+def set_value(value):
+    ser.write(value.encode())
+    return "Value sent: " + value
 
-    # Send the last value of the slider to the Arduino when the page is loaded
-    ser.write(str(last_value).encode('utf-8'))
-
-    # Render the template with the last value of the slider
-    return render_template('index.html', value=last_value)
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
