@@ -7,8 +7,22 @@
     <h1>Control Arduino with Flask</h1>
     <form method="POST">
         <label for="slider">Select a number:</label>
-        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}" onchange="this.form.submit()">
+        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}">
         <br>
+        <span id="slider-value">{{ value }}</span>
     </form>
+
+    <script>
+        // Get the slider element
+        var slider = document.getElementById('slider');
+
+        // Get the slider value element
+        var sliderValue = document.getElementById('slider-value');
+
+        // Update the slider value element when the slider value changes
+        slider.addEventListener('input', function() {
+            sliderValue.textContent = slider.value;
+        });
+    </script>
 </body>
 </html>
