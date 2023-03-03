@@ -11,23 +11,27 @@ BAUD_RATE = 9600
 ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 ser.reset_input_buffer()
 
-# Define a default value for the slider
-DEFAULT_VALUE = 0
-
-# Send the default value to the Arduino when the application starts
-ser.write(str(DEFAULT_VALUE).encode('utf-8'))
+# Initialize the last value of the slider
+last_value = 0
 
 # Define the route for the main page
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # Retrieve the last value of the slider
+    global last_value
+
     # If the form was submitted, read the slider value and send it to the Arduino
     if request.method == 'POST':
         value = int(request.form['slider'])
         ser.write(str(value).encode('utf-8'))
         print("Sent value to Arduino:", value)
+        last_value = value
 
-    # Render the template with the current slider value
-    return render_template('index.html')
+    # Send the last value of the slider to the Arduino when the page is loaded
+    ser.write(str(last_value).encode('utf-8'))
+
+    # Render the template with the last value of the slider
+    return render_template('index.html', value=last_value)
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
