@@ -7,7 +7,7 @@
     <h1>Control Arduino with Flask</h1>
     <form method="POST">
         <label for="slider">Select a number:</label>
-        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}" oninput="this.form.submit()">
+        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}" onchange="this.form.submit()">
         <br>
     </form>
 </body>
