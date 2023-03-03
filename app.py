@@ -11,9 +11,6 @@ BAUD_RATE = 9600
 ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
 ser.reset_input_buffer()
 
-# Define a default value for the slider
-default_value = 0
-
 # Define the route for the main page
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -23,8 +20,8 @@ def index():
         ser.write(str(value).encode('utf-8'))
         print("Sent value to Arduino:", value)
 
-    # Render the template with the current slider value
-    return render_template('index.html', value=default_value)
+    # Render the template without a default value for the slider
+    return render_template('index.html')
 
 if __name__ == '__main__':
     # Start the Flask server
