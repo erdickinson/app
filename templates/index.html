@@ -7,38 +7,8 @@
     <h1>Control Arduino with Flask</h1>
     <form method="POST">
         <label for="slider">Select a number:</label>
-        <input type="range" id="slider" name="slider" min="0" max="255">
+        <input type="range" id="slider" name="slider" min="0" max="255" value="{{ value }}" oninput="this.form.submit()">
         <br>
-        <input type="submit" value="Send" style="display:none;">
     </form>
-    <script>
-        // Get a reference to the slider element
-        var slider = document.getElementById('slider');
-
-        // Set the default value of the slider
-        var sliderDefaultValue = 0;
-        slider.value = sliderDefaultValue;
-
-        // Set a flag to indicate whether the slider value has been changed
-        var sliderValueChanged = false;
-
-        // Add an event listener to detect changes to the slider value
-        slider.addEventListener('change', function() {
-            // Set the flag to indicate that the slider value has been changed
-            sliderValueChanged = true;
-
-            // Submit the form when the slider value changes
-            this.form.submit();
-        });
-
-        // Add an event listener to detect when the page is loaded
-        window.addEventListener('load', function() {
-            // Check if the slider value has been changed
-            if (!sliderValueChanged) {
-                // Set the default value of the slider
-                slider.value = sliderDefaultValue;
-            }
-        });
-    </script>
 </body>
 </html>
